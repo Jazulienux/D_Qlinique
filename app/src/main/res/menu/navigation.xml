@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item android:id="@+id/halaman_utama"
+        android:title="Halaman Utama"
+        android:icon="@drawable/home"/>
+
+    <item android:id="@+id/antrian"
+        android:title="Antrian"
+        android:icon="@drawable/group"/>
+
+    <item android:id="@+id/medical_record"
+        android:title="Rekap Keluhan"
+        android:icon="@drawable/med_rcd"/>
+
+    <item android:id="@+id/konsultasi"
+        android:title="Konsultasi"
+        android:icon="@drawable/chat"/>
+
+    <item android:id="@+id/pengaturan"
+        android:title="Pengaturan"
+        android:icon="@drawable/profil"/>
+</menu>
