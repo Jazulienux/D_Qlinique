@@ -12,10 +12,18 @@ import com.example.qliniue.R;
 
 public class Login extends AppCompatActivity {
 
+    public static final String USERNAME_KEY = "username";
+    public static final String PASSWORD_KEY = "password";
+
+    private EditText username;
+    private EditText password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        username = findViewById(R.id.txt_username);
+        password = findViewById(R.id.txt_password);
     }
 
     public void handleRegistration(View view) {
@@ -24,7 +32,20 @@ public class Login extends AppCompatActivity {
     }
 
     public void handleApp(View view){
-            Intent i = new Intent(Login.this, MainActivity.class);
-            startActivity(i);
+            String usernameInput = username.getText().toString();
+            String passwordInput = password.getText().toString();
+
+            if(!usernameInput.equals("") && !passwordInput.equals("")){
+                Bundle bundle = new Bundle();
+                bundle.putString("USERNAME_KEY",usernameInput);
+                bundle.putString("PASSWORD_KEY",passwordInput);
+                Intent i = new Intent(Login.this, MainActivity.class);
+                i.putExtras(bundle);
+                startActivity(i);
+            }
+            else{
+                Toast.makeText(this,"Username / Password Tidak Boleh Kosong",Toast.LENGTH_SHORT).show();
+            }
+
     }
 }

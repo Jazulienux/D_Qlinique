@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 
 import com.example.qliniue.R;
@@ -19,11 +17,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
+    private String username;
+    private String password;
+    private HomeFragment homeFragment;
+    private AntrianFragment antrianFragment;
+    private KonsulFragment konsulFragment;
+    private MedicalRecordFragment medicalRecordFragment;
+    private PengaturanFragment pengaturanFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadFragment(new HomeFragment());
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            username = extras.getString("USERNAME_KEY");
+            password = extras.getString("PASSWORD_KEY");
+            loadFragment(homeFragment = HomeFragment.newInstance(username,password));
+        }
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         // beri listener pada saat item/menu bottomnavigation terpilih
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -45,21 +57,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment fragment = null;
         switch (menuItem.getItemId()) {
             case R.id.halaman_utama:
-                fragment = new HomeFragment();
+                fragment = homeFragment = HomeFragment.newInstance(username,password);
                 break;
             case R.id.antrian:
-                fragment = new AntrianFragment();
+                fragment = antrianFragment = AntrianFragment.newInstance(username,password);
                 break;
             case R.id.medical_record:
-                fragment = new MedicalRecordFragment();
+                fragment = medicalRecordFragment =  MedicalRecordFragment.newInstance(username,password);
                 break;
 
             case R.id.konsultasi:
-                fragment = new KonsulFragment();
+                fragment = konsulFragment = KonsulFragment.newInstance(username,password);
                 break;
 
             case R.id.pengaturan:
-                fragment = new PengaturanFragment();
+                fragment = pengaturanFragment = PengaturanFragment.newInstance(username,password);
                 break;
         }
         return loadFragment(fragment);
